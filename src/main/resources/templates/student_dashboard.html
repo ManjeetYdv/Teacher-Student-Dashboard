@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Student Dashboard</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #667eea, #764ba2);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      color: #fff;
+    }
+
+    .dashboard-container {
+      background-color: white;
+      color: #333;
+      padding: 40px;
+      margin: 40px;
+      border-radius: 16px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      width: 600px;
+      position: relative; /* Add position relative to position the logout button */
+    }
+
+    h2, h3 {
+      text-align: center;
+      color: #444;
+    }
+
+    .info {
+      margin: 20px 0;
+      padding: 20px;
+      background-color: #f7f7f7;
+      border-radius: 10px;
+    }
+
+    .info p {
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid #ccc;
+    }
+
+    th {
+      background-color: #e3e3e3;
+      font-weight: bold;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    /* Logout Button */
+    .logout-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: red;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .logout-button:hover {
+      background-color: #ff4d4d;
+    }
+  </style>
+</head>
+<body>
+<div class="dashboard-container">
+  <button class="logout-button" onclick="window.location.href='/logout'">Logout</button>
+
+  <h2>Welcome, <span th:text="${student.getName()}">Student Name</span>!</h2>
+
+  <div class="info">
+    <p><strong>Roll Number:</strong> <span th:text="${student.getRollNumber()}"></span></p>
+    <p><strong>Email:</strong> <span th:text="${student.getEmail()}"></span></p>
+    <p><strong>Course:</strong> <span th:text="${student.getCourse()}"></span></p>
+  </div>
+
+  <h3>Semester-wise CGPA</h3>
+  <table>
+    <thead>
+    <tr>
+      <th>Semester</th>
+      <th>CGPA</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="cgpa : ${cgpaList}">
+      <td th:text="${cgpa.semester}">1</td>
+      <td th:text="${cgpa.cgpa}">9.0</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Signup</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .signup-container {
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #444;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        button {
+            margin-top: 25px;
+            width: 100%;
+            background-color: #2575fc;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1a5ed8;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #2575fc;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        function toggleFields() {
+            const role = document.getElementById("role").value;
+            const studentFields = document.getElementById("student-fields");
+            const teacherFields = document.getElementById("teacher-fields");
+
+            if (role === "STUDENT") {
+                studentFields.style.display = "block";
+                teacherFields.style.display = "none";
+            } else if (role === "TEACHER") {
+                studentFields.style.display = "none";
+                teacherFields.style.display = "block";
+            } else {
+                studentFields.style.display = "none";
+                teacherFields.style.display = "none";
+            }
+        }
+
+        window.onload = toggleFields;
+    </script>
+</head>
+<body>
+<div class="signup-container">
+    <h2>Signup</h2>
+
+    <form th:action="@{/signup}" method="post">
+        <div>
+            <label>Role:</label>
+            <select id="role" name="role" onchange="toggleFields()" required>
+                <option value="">-- Select Role --</option>
+                <option value="STUDENT">Student</option>
+                <option value="TEACHER">Teacher</option>
+            </select>
+        </div>
+
+        <div id="student-fields" style="display:none;">
+            <label>Roll Number:</label>
+            <input type="text" name="rollNumber" />
+            <label>Name:</label>
+            <input type="text" name="name" />
+            <label>Email:</label>
+            <input type="email" name="gmail" />
+            <label>Course:</label>
+            <input type="text" name="course" />
+            <label>Password:</label>
+            <input type="password" name="password" />
+        </div>
+
+        <div id="teacher-fields" style="display:none;">
+            <label>Email:</label>
+            <input type="email" name="TeacherGmail" />
+            <label>Name:</label>
+            <input type="text" name="TeacherName" />
+            <label>Department:</label>
+            <input type="text" name="department" />
+            <label>Password:</label>
+            <input type="password" name="TeacherPassword" />
+        </div>
+
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <div class="login-link">
+        <p>Already have an account? <a th:href="@{/login}">Login here</a></p>
+    </div>
+</div>
+</body>
+</html>
